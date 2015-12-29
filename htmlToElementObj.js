@@ -6,6 +6,7 @@ function getPostHtml() {
   return $("#siteTable .md").html();
 }
 
+var html = getPostHtml(); // get html from post
 var startCopy, endCopy; // index of where to start and end copying
 var currentDepth = 0; // how deep into
 
@@ -16,37 +17,65 @@ var findCurrentCloseTag; // regex for finding current close tag
 var body = new Element(0, "body"); // base containing all elements
 
 
-function scanHtml(html) {
-  // iterate through each character
-  var counter = 0;
-  var tagInfo; // information about regex result
+function scanHtml() {
+
   var currentTextContent; // string of current text content
-  var lastIndex;
+  // object containing information about the next tag, initially indexes are 0
+  var nextTag = new NextTag(false, "body", 0, 0);
 
-  do {
-    counter++;
+  while (true) {
+    // get next tag based on the previous tag's last index
+    var nextTag = getNextTag(nextTag.lastIndex);
 
-    tagInfo = findOpenTag.exec(html);
-    currentOpenTag = tagInfo[1]; // current opened tag, ie "p"
-    startCopy = findOpenTag.lastIndex;
+    // end of html when nextTag return false
+    if (!nextTag) {
+      break;
+    }
 
-    // set the RegExp for closing tag based on last tag opened
-    findCurrentCloseTag = new RegExp(("<\/" + currentOpenTag + ">"), "g");
-    // set lastIndex for the RegExp
-    findCurrentCloseTag.lastIndex = findOpenTag.lastIndex;
+    // an open tag
+    if (nextTag.openTag) {
+      currentOpenTag = nextTag.tag;
+      startCopy = nextTag.lastIndex;
+    } else {
+      endCopy = nextTag.matchIndex;
+      currentTextContent = html.slice(startCopy, endCopy);
+      console.log(currentTextContent);
+      storeElement(currentOpenTag, currentTextContent);
+    } // end else
+  } // end while loop
+}
 
-    tagInfo = findCurrentCloseTag.exec(html);
-    endCopy = tagInfo.index;
+// return a NextTag() object with information about the next closest tag found
+function getNextTag(lastIndex) {
 
-    // text content between open and close tags
-    currentTextContent = html.slice(startCopy, endCopy);
-    storeElement(currentOpenTag, currentTextContent);
+  // set the regex for closing tag based on last tag opened
+  findCurrentCloseTag = new RegExp(("<\/" + currentOpenTag + ">"), "g");
 
-    findOpenTag.lastIndex = findCurrentCloseTag.lastIndex;
+  // set regex to search from same last index
+  findOpenTag.lastIndex = findCurrentCloseTag.lastIndex = lastIndex;
+  var infoOpenTag = findOpenTag.exec(html);
+  var infoCurrentCloseTag = findCurrentCloseTag.exec(html);
 
-  // lastIndex resets to 0 when end of html is reached
-  } while (findOpenTag.lastIndex > 0);
+  if (!infoOpenTag) {
+    console.log("infoOpenTag is null")
+  }
+  if (!infoCurrentCloseTag) {
+    console.log("infoCurrentCloseTag is null")
+  }
 
+  // both regex area null indicating they have reached the end of the html
+  if (!infoOpenTag && !infoCurrentCloseTag) {
+    return false;
+  }
+
+  // if infoOpenTag is not null and an open tag first
+  if (infoOpenTag && infoOpenTag.index < infoCurrentCloseTag.index) {
+    return new NextTag(true, infoOpenTag[1], infoOpenTag.index,
+        findOpenTag.lastIndex);
+  } else { // find a close tag first
+    return new NextTag(false, infoCurrentCloseTag[0],
+        infoCurrentCloseTag.index, findCurrentCloseTag.lastIndex);
+  }
 }
 
 
@@ -71,10 +100,15 @@ function Element(depth, tag) {
   this.content = [];        // content within element
 }
 
+// constructor for a next tag object
+function NextTag(openTag, tag, matchIndex, lastIndex) {
+  this.openTag = openTag;   // boolean whether this tag is an open tag
+  this.tag = tag;           // tag, ie. p, /p, em, /em
+  this.matchIndex = matchIndex;       // index of matching tag
+  this.lastIndex = lastIndex;         // index where exec stopped
+}
 
 //Tests
 
-postHtml = getPostHtml();
-//console.log(postHtml);
-scanHtml(postHtml);
-//parseParagraph(postHtml);
+scanHtml();
+body;

@@ -1,0 +1,11 @@
+https://www.reddit.com/r/shortstories/comments/3nmmc7/mf_you_cant_skip_stones_on_the_sea/
+- only paragraphs
+
+https://np.reddit.com/r/Parenting/comments/3yagfv/parenting_is_a_lot_like_sysadminning/
+- nested unordered lists
+- <strong>
+
+https://www.reddit.com/r/changemyview/comments/3yb171/cmv_baseball_requires_more_acquired_skill_than/
+- editted post, effects timestamp
+- reddit specific block added to bottom of post
+- <p class=>
