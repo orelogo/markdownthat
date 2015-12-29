@@ -30,11 +30,19 @@ function getPostHtml() {
   return $("#siteTable .md").html();
 }
 
+// html to markdown
 
 
 // Tests
 
+/*
 console.log(getPostTitle());
 console.log(getAuthor());
 console.log(getPostDate());
 console.log(getPostHtml());
+*/
+
+postHtml = getPostHtml();
+//console.log(postHtml);
+mdHtml = getMarkdownFromHtml(postHtml);
+//console.log(mdHtml);
