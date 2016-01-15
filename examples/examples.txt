@@ -7,5 +7,6 @@ https://np.reddit.com/r/Parenting/comments/3yagfv/parenting_is_a_lot_like_sysadm
 
 https://www.reddit.com/r/changemyview/comments/3yb171/cmv_baseball_requires_more_acquired_skill_than/
 - editted post, effects timestamp
+- <em>, <strong>
 - reddit specific block added to bottom of post
 - <p class=>
