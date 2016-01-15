@@ -1,128 +1,3 @@
-
-// character used for unordered lists, common options *, +, -
-var UL_CHAR = "- ";
-var EM_CHAR = "*"; // character used for <em> and <strong>, other option is _
-
-function parseParagraph(html) {
-  var counter = 0;
-  return html.replace(/<p.*>(.*)<\/p>/gm, function(match, p1) {
-    counter++;
-    console.log(counter);
-    console.log(match);
-    console.log(p1);
-    return p1;
-  });
-}
-
-/* parse <li> items in an unordered list, functions runs inside
-   parseUnorderedList
-*/
-function parseUnorderedItems(list) {
-  return list.replace(/<li.*>(.*)<\/li>/g, function(match, p1) {
-    return UL_CHAR + p1;
-  });
-}
-
-function parseUnorderedList(html) {
-  return html.replace(/<ul.*>([\s\S]*)<\/ul>/g, function(match, p1) {
-    return parseUnorderedItems(p1);
-  });
-}
-
-/* not working properly
-function parseUnorderedNestedItems(html) {
-  return html.replace(/<li[\s\S]*>([\s\S]*)<\/li>/, function(match, p1) {
-    console.log("nestedItems");
-    return "  " + UL_CHAR + p1;
-  });
-}
-
-
-function parseUnorderedNestedList(html) {
-  return html.replace(/<ul[\s\S]*>[\s\S]*<ul[\s\S]*>([\s\S]*?)<\/ul>/g, function(match, p1) {
-    console.log("match: " + match);
-    console.log("p1: " + p1) // p1 remains empty and I don't know why
-    return parseUnorderedNestedItems(p1);
-  });
-}
-*/
-
-// parse <li> items in an ordered list, functions runs inside parseOrderedList
-function parseOrderedItems(list) {
-  var startingNum = 0;
-  return list.replace(/<li.*>(.*)<\/li>/g, function(match, p1) {
-    startingNum += 1;
-    return startingNum + ". " + p1;
-  });
-}
-
-function parseOrderedList(html) {
-  return html.replace(/<ol.*>([\s\S]*)<\/ol>/g, function(match, p1) {
-    return parseOrderedItems(p1);
-  });
-}
-
-function parseEmphasized(html) {
-  return html.replace(/<em>(.*)<\/em>/g, function(match, p1) {
-    return EM_CHAR + p1 + EM_CHAR;
-  });
-}
-
-function parseStrong(html) {
-  return html.replace(/<strong>(.*)<\/strong>/g, function(match, p1) {
-    return EM_CHAR + EM_CHAR + p1 + EM_CHAR + EM_CHAR;
-  });
-}
-
-function getMarkdownFromHtml(html) {
-  //html = parseUnorderedNestedList(html);
-  html = parseUnorderedList(html);
-  html = parseUnorderedList(html);
-  html = parseParagraph(html);
-  html = parseEmphasized(html);
-  html = parseStrong(html);
-  return html;
-}
-
-
-
-// Tests
-/*
-var pHtml = "masterblast <p>Foo, bar, foo</p> ASDF\n<p>Boo bar bee</p>";
-console.log(parsedP = parseParagraph(pHtml));
-
-var ulHtml = "<ul>\n <li>Coffee</li>\n <li>Tea</li>\n <li>Milk</li>\n</ul>";
-console.log(parseUnorderedList(ulHtml));
-
-var olHtml = "<ol>\n <li>Coffee</li>\n <li>Tea</li>\n <li>Milk</li>\n</ol>";
-console.log(parseOrderedList(olHtml));
-
-var emHtml = "Hi there <em>friend</em>";
-console.log(parseEmphasized(emHtml));
-
-var strongHtml = "Hi there <strong>buddy</strong>, you rock!";
-console.log(parseStrong(strongHtml));
-*/
-var ululHtml="";
-ululHtml += "<ul>\n";
-ululHtml += "<li>Dogs\n";
-ululHtml += "<ul>\n";
-ululHtml += "<li>Husky<\/li>\n";
-ululHtml += "<li>Beagel<\/li>\n";
-ululHtml += "<\/ul>\n";
-ululHtml += "<\/li>\n";
-ululHtml += "<li>Cats\n";
-ululHtml += "<ul>\n";
-ululHtml += "<li>Meowth<\/li>\n";
-ululHtml += "<li>Sphinx<\/li>\n";
-ululHtml += "<\/ul>\n";
-ululHtml += "<\/li>\n";
-ululHtml += "<\/ul>\n";
-//console.log(parseUnorderedNestedList(ululHtml));
-
-
-// markdown.js
-
 function getPostHtml() {
   // for testing
   var matches = document.querySelectorAll("#siteTable .md");
@@ -131,7 +6,145 @@ function getPostHtml() {
   return $("#siteTable .md").html();
 }
 
-postHtml = getPostHtml();
-//console.log(postHtml);
-mdHtml = getMarkdownFromHtml(postHtml);
-//console.log(mdHtml);
+var html = getPostHtml(); // get html from post
+var startCopy, endCopy; // index of where to start and end copying
+var currentDepth = 0; // how deep into the element tree the program is
+
+var currentOpenTag = ""; // current opened tag, ie. "p"
+var findOpenTag = /<(p|em|strong|ul|li)[\s\S]*?>/g // regex for finding open tag
+var findCurrentCloseTag; // regex for finding current close tag
+
+// base containing all elements, tag must be "" for proper use in openTag()
+// and closeTag()
+var body = new Element(0, "");
+var arrOpenTags = []; // array of currently open tags
+arrOpenTags.push(body);
+
+function scanHtml() {
+
+  var currentTextContent; // string of current text content
+  // object containing information about the next tag, initially indexes are 0
+  var nextTag = new NextTag(false, "body", 0, 0);
+
+  while (true) {
+    // get next tag based on the previous tag's last index
+    console.log("Last Index for next tag: " + nextTag.lastIndex);
+    nextTag = getNextTag(nextTag.lastIndex);
+
+    // end of html when nextTag return false
+    if (!nextTag) {
+      break;
+    }
+
+    // an open tag
+    if (nextTag.isOpenTag) {
+      openTag(nextTag);
+    } else {
+      closeTag(nextTag);
+    } // end else
+  } // end while loop
+}
+
+// return a NextTag() object with information about the next closest tag found
+function getNextTag(lastIndex) {
+
+  // set the regex for closing tag based on last tag opened
+  findCurrentCloseTag = new RegExp("<\/" + currentOpenTag + ">", "g");
+
+  // set regex to search from same last index
+  findOpenTag.lastIndex = findCurrentCloseTag.lastIndex = lastIndex;
+  var infoOpenTag = findOpenTag.exec(html);
+  var infoCurrentCloseTag = findCurrentCloseTag.exec(html);
+
+  if (!infoOpenTag) {
+    console.log("infoOpenTag is null");
+  }
+  if (!infoCurrentCloseTag) {
+    console.log("infoCurrentCloseTag is null");;
+  }
+
+  // both regex area null indicating they have reached the end of the html
+  if (!infoOpenTag && !infoCurrentCloseTag) {
+    return false;
+  }
+
+  // if infoOpenTag is not null and an open tag first, or if
+  // findCurrentCloseTag.exec() fails to find a match (ie. when first run
+  // with "")
+  if (!infoCurrentCloseTag ||
+      infoOpenTag && infoOpenTag.index < infoCurrentCloseTag.index) {
+    var nextTag = new NextTag(true, infoOpenTag[1], infoOpenTag.index,
+      findOpenTag.lastIndex);
+  } else { // find a close tag first
+    var nextTag = new NextTag(false, infoCurrentCloseTag[0],
+      infoCurrentCloseTag.index, findCurrentCloseTag.lastIndex);
+      console.log("Close Tag: " + infoCurrentCloseTag[0]);
+      console.log("Close Tag Index: " + infoCurrentCloseTag.index);
+      console.log("Close Tag Last Index: " + findCurrentCloseTag.lastIndex);
+  }
+  return nextTag;
+}
+
+function openTag(nextTag) {
+  // there is a current open tag, add text content to last open element
+  // if you are in body, currentOpenTag = "" and will be false
+  if (currentOpenTag) {
+    endCopy = nextTag.matchIndex;
+    addTextContent();
+  }
+
+  // open new tag
+  currentDepth += 1;
+  currentOpenTag = nextTag.tag;
+  startCopy = nextTag.lastIndex;
+
+  var newElement = new Element(currentDepth, currentOpenTag);
+  // add new element pointer to content of last open tag element
+  arrOpenTags[arrOpenTags.length - 1].content.push(newElement);
+  // add new element pointer to end of arrOpenTags
+  arrOpenTags.push(newElement);
+}
+
+function closeTag(nextTag) {
+  // add text conent to last open element
+  endCopy = nextTag.matchIndex;
+  addTextContent();
+
+  // remove close tag from end of arrOpenTags
+  arrOpenTags.pop();
+  currentDepth -= 1;
+  // get current open tag for last element in arrOpenTags
+  currentOpenTag = arrOpenTags[arrOpenTags.length - 1].tag;
+  startCopy = nextTag.lastIndex;
+}
+
+// slice and add text to last added arrOpenTag Element
+function addTextContent() {
+  var currentTextContent = html.slice(startCopy, endCopy);
+  // trim to remove whitespace and line breaks
+  currentTextContent = currentTextContent.trim();
+  if (currentTextContent) {
+    // only add content if it is not empty
+    arrOpenTags[arrOpenTags.length - 1].content.push(currentTextContent);
+  }
+}
+
+// construcutor for an element object
+function Element(depth, tag) {
+  this.depth = depth; // depth of element, 0 is the surface area
+  this.tag = tag;     // elment tag
+  this.content = [];  // content within element
+}
+
+// constructor for a next tag object
+function NextTag(isOpenTag, tag, matchIndex, lastIndex) {
+  this.isOpenTag = isOpenTag;   // boolean whether this tag is an open tag
+  this.tag = tag;               // tag, ie. p, /p, em, /em
+  this.matchIndex = matchIndex; // index of matching tag
+  this.lastIndex = lastIndex;   // index where exec stopped
+}
+
+//Tests
+
+scanHtml();
+body;
