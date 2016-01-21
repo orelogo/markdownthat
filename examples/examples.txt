@@ -10,3 +10,13 @@ https://www.reddit.com/r/changemyview/comments/3yb171/cmv_baseball_requires_more
 - <em>, <strong>
 - reddit specific block added to bottom of post
 - <p class=>
+
+https://www.reddit.com/r/RivalsOfAether/comments/3zwi66/update_0010_what_a_whiff_has_arrived/
+- h1, h2
+- em, strong
+- ul
+- code
+- hr
+
+https://www.reddit.com/r/RocketLeague/comments/3vzlxx/indepth_basic_aerial_guide_wgif_illustrations/
+- links
