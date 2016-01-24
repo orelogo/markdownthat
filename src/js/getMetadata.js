@@ -22,27 +22,16 @@ function getPostDate() {
   return $("#siteTable time").attr("datetime").substring(0, 10);
 }
 
-function getPostHtml() {
+function getPostHtml(pageHtml) {
   // for testing
-  var matches = document.querySelectorAll("#siteTable .md");
-  console.log(matches.length + " html matches found");
+  // var matches = document.querySelectorAll("#siteTable, .md");
+  // console.log(matches.length + " html matches found");
 
-  return $("#siteTable .md").html();
+  // console.log($(pageHtml).find("#siteTable .md").html());
+  // return $(pageHtml).find("#siteTable .md").html();
+
+  var postRegExp = /<div class="expando">[\s\S]*?<div class="md">([\s\S]*?)<\/div>/;
+  var execResult = postRegExp.exec(pageHtml);
+  console.log(execResult);
+  return execResult[1];
 }
-
-// html to markdown
-
-
-// Tests
-
-/*
-console.log(getPostTitle());
-console.log(getAuthor());
-console.log(getPostDate());
-console.log(getPostHtml());
-*/
-
-postHtml = getPostHtml();
-//console.log(postHtml);
-mdHtml = getMarkdownFromHtml(postHtml);
-//console.log(mdHtml);

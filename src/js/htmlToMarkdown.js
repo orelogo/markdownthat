@@ -1,17 +1,18 @@
-function getPostHtml() {
-  // for testing
-  var matches = document.querySelectorAll("#siteTable .md");
-  console.log(matches.length + " html matches found");
-
-  return $("#siteTable .md").html();
-}
+// function getPostHtml() {
+//   // for testing
+//   var matches = document.querySelectorAll("#siteTable .md");
+//   console.log(matches.length + " html matches found");
+//
+//   return $("#siteTable .md").html();
+// }
 
 /*
-   Convert html to recursive Element objects
+   Convert post html to recursive Element objects
 */
 
-  var html = getPostHtml(); // html to be parsed
-  var startTextContent, stopTextContent;   // index of where to extract text content
+  var postHtml;              // post html to be parsed
+  // indexes of where to extract text content
+  var startTextContent, stopTextContent;
   var arrOpenTags = []; // array of currently open tags
 
 /**
@@ -31,7 +32,7 @@ function scanHtml() {
     tag: "",
     matchIndex: 0,
     lastIndex: 0
-  }
+  };
 
   // base Element object for containing other elements
   var body = new Element(foundTag);
@@ -114,8 +115,8 @@ function getNextTag(lastIndex) {
 
   // set regExps to search from same last index
   findOpenTag.lastIndex = findCurrentCloseTag.lastIndex = lastIndex;
-  var infoOpenTag = findOpenTag.exec(html);
-  var infoCurrentCloseTag = findCurrentCloseTag.exec(html);
+  var infoOpenTag = findOpenTag.exec(postHtml);
+  var infoCurrentCloseTag = findCurrentCloseTag.exec(postHtml);
 
   // both regex are null indicating they have reached the end of the html
   if (!infoOpenTag && !infoCurrentCloseTag) {
@@ -185,7 +186,7 @@ function closeTag(foundTag) {
  * adds it to content of current open tag.
  */
 function addTextContent() {
-  var currentTextContent = html.slice(startTextContent, stopTextContent);
+  var currentTextContent = postHtml.slice(startTextContent, stopTextContent);
   // trim to remove newline in html, only trims at length less than 3 so it
   // doesn't trim important spaces
   if (currentTextContent.length <= 2) {
@@ -236,9 +237,11 @@ function getUrl(foundTag) {
     }
   }
   else if (foundTag.tag === "img") {
-    var srcRegExp = /src\s*=\s*"(.*?)"/
+    var srcRegExp = /src\s*=\s*"(.*?)"/;
     var regExpExec = srcRegExp.exec(foundTag.attributes);
-    return regExpExec[1];
+    if (regExpExec) { // in case img has no src
+      return regExpExec[1];
+    }
   }
 }
 
@@ -275,7 +278,7 @@ var HEADING_CHAR = "#";   // character added before and after h3-h6
 var HR_CHAR = "-";        // for <hr>, commonly - or "- "
 var HR_LENGTH = 3;        // length of <hr>
 var OL_CHAR = ". ";       // ordered list characters after the number value
-var BLOCKQUOTE_CHAR = "> " // blockquote character
+var BLOCKQUOTE_CHAR = "> "; // blockquote character
 // array of currently open tags, used when reading Element
 var arrReadOpenTags = [];
 
@@ -367,7 +370,7 @@ function addOpenTagContent(element, index) {
       break;
     case "li":
       // add leading spaces based on number of ancestor lists
-      markdownString += "\n" + Array(getListCount()).join(LIST_INDENT)
+      markdownString += "\n" + Array(getListCount()).join(LIST_INDENT);
       // ordered list
       if (getCurrentReadOpenTag().tag === "ol") {
         markdownString += getCurrentReadOpenTag().orderedListValue + OL_CHAR;
@@ -506,7 +509,7 @@ function addBlockquote(blockquoteElement) {
  * containing the index where the h1 or h2 tag starts
  */
 function addUnderline(hElement) {
-  var stringLength = markdownString.length - element.startIndex;
+  var stringLength = markdownString.length - hElement.startIndex;
   if (hElement.tag === "h1") {
     markdownString += "\n" + Array(stringLength + 1).join("=");
   }
@@ -552,11 +555,20 @@ function markdownCleanUp() {
   // removes blank anchor markdown conversions: []() and &nbsp;
   var resCleanUp = /\n&nbsp;|\[\]\(undefined\)|\[\[RES.+?\]\]\(.*?\)/g;
   markdownString = markdownString.replace(resCleanUp, "");
+  markdownString = markdownString.trim();
 }
 
 //Tests
 
-var body = scanHtml();
-iterateElementContent(body);
-markdownCleanUp();
-console.log(markdownString);
+// var body = scanHtml();
+// iterateElementContent(body);
+// markdownCleanUp();
+// console.log(markdownString);
+
+function runMarkdownConvertion(pageHtml) {
+  postHtml = getPostHtml(pageHtml);
+  var body = scanHtml();
+  console.log(body);
+  iterateElementContent(body);
+  markdownCleanUp();
+}

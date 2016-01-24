@@ -1,0 +1,22 @@
+{
+  "manifest_version": 2,
+
+  "name": "rMarkdown",
+  "description": "Convert a reddit post to markdown",
+  "version": "1.0",
+
+  "permissions": [
+    "activeTab"
+  ],
+
+  "content_scripts": [
+    {
+      "matches": ["*://*.reddit.com/*"],
+      "js": ["js/contentscript.js", "lib/jquery-2.2.0.min.js"]
+    }
+  ],
+
+  "browser_action": {
+    "default_popup": "popup.html"
+  }
+}
