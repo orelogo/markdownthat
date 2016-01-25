@@ -1,4 +1,7 @@
-console.log("above");
+
+// add markdown button under all posts and comments
+$('ul.flat-list.buttons').append(
+    '<li class="markdown-button"><a href="javascript:void(0)" class="markdown-anchor">markdown</a></li>');
 
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
@@ -9,4 +12,14 @@ chrome.runtime.onMessage.addListener(
     }
   });
 
-console.log("below");
+// when user clicks on markdown button
+$('.markdown-anchor').click(function() {
+  // find closest div to clicked markdown button
+  var divContent = $(this).closest("div");
+  console.log(divContent);
+  getPostTitle(divContent);
+  getAuthor(divContent);
+  getDate(divContent);
+  getUrl(divContent);
+  getPostHtml(divContent);
+});

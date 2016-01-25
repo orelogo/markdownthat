@@ -2,7 +2,7 @@
   "manifest_version": 2,
 
   "name": "rMarkdown",
-  "description": "Convert a reddit post to markdown",
+  "description": "Convert a reddit post or comment to markdown",
   "version": "1.0",
 
   "permissions": [
@@ -12,7 +12,7 @@
   "content_scripts": [
     {
       "matches": ["*://*.reddit.com/*"],
-      "js": ["js/contentscript.js", "lib/jquery-2.2.0.min.js"]
+      "js": ["lib/jquery-2.2.0.min.js", "js/contentscript.js"]
     }
   ],
 

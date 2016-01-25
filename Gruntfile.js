@@ -6,8 +6,12 @@ module.exports = function(grunt) {
       //   separator: ';',
       // },
       js: {
-        src: ['src/js/getMetadata.js', 'src/js/htmlToMarkdown.js', 'src/js/popup.js'],
+        src: ['src/js/htmlToMarkdown.js', 'src/js/popup.js'],
         dest: 'build/js/rMarkdown.js',
+      },
+      contentscript: {
+        src: ['src/js/getDomData.js', 'src/js/contentscript.js'],
+        dest: 'build/js/contentscript.js',
       },
     },
 
@@ -18,14 +22,13 @@ module.exports = function(grunt) {
           {expand: true, cwd: 'src/', src: ['*'], dest: 'build/', filter: 'isFile'},
           {expand: true, cwd: 'src/', src: ['css/**'], dest: 'build/'},
           {expand: true, cwd: 'src/', src: ['lib/**'], dest: 'build/'},
-          {expand: true, cwd: 'src/', src: ['js/contentscript.js'], dest: 'build/'},
         ],
       },
     },
 
     watch: {
       files: ['src/**'],
-      tasks: ['concat:js', 'copy:main'],
+      tasks: ['concat', 'copy:main'],
     },
   });
 
