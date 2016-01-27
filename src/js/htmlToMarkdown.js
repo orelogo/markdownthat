@@ -1,11 +1,3 @@
-// function getPostHtml() {
-//   // for testing
-//   var matches = document.querySelectorAll("#siteTable .md");
-//   console.log(matches.length + " html matches found");
-//
-//   return $("#siteTable .md").html();
-// }
-
 /*
    Convert post html to recursive Element objects
 */
@@ -54,7 +46,7 @@ function scanHtml() {
       closeTag(foundTag);
     }
   } // end while loop
-  arrOpenTags = undefined; // clear arrOpenTags when done scannning html
+  arrOpenTags = []; // clear arrOpenTags when done scannning html
   return body;
 }
 
@@ -108,7 +100,7 @@ function getCurrentOpenTag() {
 function getNextTag(lastIndex) {
 
   // regExp for finding open tag, must be global search
-  var findOpenTag = /<\b(p|em|strong|ul|ol|li|h[1-6]|hr|br|a|img|span|blockquote|del|s|pre|code)\b([\s\S]*?)>/g;
+  var findOpenTag = /<\b(p|em|strong|ul|ol|li|h[1-6]|hr|br|a|img|span|blockquote|del|s|pre|code|sup)\b([\s\S]*?)>/g;
   // regExp to find closing tag based on last tag opened
   var findCurrentCloseTag = new RegExp("<(\/" + getCurrentOpenTag().tag +
       ")>", "g");
@@ -556,19 +548,4 @@ function markdownCleanUp() {
   var resCleanUp = /\n&nbsp;|\[\]\(undefined\)|\[\[RES.+?\]\]\(.*?\)/g;
   markdownString = markdownString.replace(resCleanUp, "");
   markdownString = markdownString.trim();
-}
-
-//Tests
-
-// var body = scanHtml();
-// iterateElementContent(body);
-// markdownCleanUp();
-// console.log(markdownString);
-
-function runMarkdownConvertion(pageHtml) {
-  postHtml = getPostHtml(pageHtml);
-  var body = scanHtml();
-  console.log(body);
-  iterateElementContent(body);
-  markdownCleanUp();
 }

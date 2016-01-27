@@ -10,7 +10,7 @@ module.exports = function(grunt) {
         dest: 'build/js/rMarkdown.js',
       },
       contentscript: {
-        src: ['src/js/getDomData.js', 'src/js/contentscript.js'],
+        src: ['src/js/getPostData.js', 'src/js/contentscript.js'],
         dest: 'build/js/contentscript.js',
       },
     },

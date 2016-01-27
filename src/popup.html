@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+
+<!-- For designing the popup -->
+
 <html>
 
 <head>
@@ -10,9 +13,278 @@
   <script src="js/rMarkdown.js"></script>
 </head>
 
-  <body>
-    <textarea cols="80" rows="20" id="markdown-textarea"></textarea>
-  </body>
+<body>
+  <h2>Rivals of Aether Update 0.0.10</h2>
+
+  <p>1/7/2015</p>
+
+  <p><strong>What a Whiff!</strong></p>
+
+  <p><em>Hey Guys! We are coming at you with a balance update. Since Absa’s release, we have been watching how the Rivals have balanced out and where their strong points are. We wanted to address some issues with the core balance as well as some of the more degenerate strategies involving camping and spamming.</em></p>
+
+  <p><em>We also overhauled our controller input scheme. We no longer use Xinput but rather Dinput to recognize inputs. This means that you can play without having to use Xbox 360ce. Keep in mind that our support is new and some controllers will have awkward defaults. Let us know on reddit or aetherboards if you have issues with your controllers.</em></p>
+
+  <hr>
+
+  <h2>General:</h2>
+
+  <ul>
+    <li>We have added a new mechanic called <strong>Whiff Recovery</strong>. It increases the length of a window only if an attack has missed. We have added this mechanic to multiple characters in order to reduce spamming “safe” attacks without fear of punishment.</li>
+    <li>Extended Parry Lag base decreased from 60 &gt; 50 Frames. It now scales up with distance between the players up to a maximum of 100 Frames. This affects Kragg Down Special and Absa Neutral Special, Forward Special and Down Special.</li>
+    <li>Tech in place recovery reduced from 8 &gt; 4 Frames. Total time reduced from 22 &gt; 18.</li>
+    <li>Jabs can only be immediately cancelled into tilts on hit. This is to make Jab less safe and to prevent some characters from being able to cover rolls perfectly in many situations.</li>
+    <li>Tumble DI reduced from 28 &gt; 18. This removed followups that characters relied on and made DI inconsistent. Instead we will be addressing how difficult these setups are to trigger instead of removing them entirely.</li>
+    <li>Our festive holiday color palettes have been removed. I wonder what holiday they will celebrate in Aether next?</li>
+    <li>You can now expand the Rivals of Aether window while it is in windowed mode.</li>
+    <li><strong>Bug Fix:</strong> Players can no longer tech before the Flinch State.</li>
+    <li><strong>Bug Fix</strong> Fixed a bug that prevented players from DIing Spikes toward the right.</li>
+  </ul>
+
+  <hr>
+
+  <h2>Controller Support and Custom Controls</h2>
+
+  <ul>
+    <li>Rivals of Aether now supports many different types of controllers without 3rd party software! This means that anyone using x360ce to play with Gamecube controllers will no longer need it to play the game.</li>
+    <li>Custom controls have also been reworked. Instead of asking what action you want each button to do, we now ask which buttons you would like to assign to each action. This makes setting up controls faster and more intuitive.</li>
+    <li>The custom controls menu is separated into 3 pages:</li>
+    <li>
+      <p>Page 1 - Main Actions (Attack, Special, Jump, Strong, Dodge)</p>
+
+      <p>Each main action can have 4 different buttons assigned to it. To set multiple buttons to an action, hold them down. Releasing all buttons will accept the inputs, so as long as a single button is held, you can press the others individually (this
+        is important for setting an action to L and R on an Xbox controller, since both triggers control the same axis internally).</p>
+    </li>
+    <li>
+      <p>Page 2 - Secondary Actions (Taunt, Shorthop, Fullhop, Dpad Run/Walk) and Dpad functionality</p>
+
+      <p>Each secondary action can have a single button assigned to it. The Dpad can be switched between Action, Move, Run, and None</p>
+    </li>
+    <li>
+      <p>Page 3 - Stick sensitivity</p>
+
+      <p>You can now adjust the stick sensitivity for you controller. The first two options allow you to adjust the horizontal and vertical sensitivity of your left stick (effectively setting your controller's deadzone). The third option sets the sensitivity
+        for hard presses, which are used for things like dashing and dropping through platforms. The fourth option is the sensitivity for the right stick.</p>
+    </li>
+    <li>
+      <p>The first two pages also have a "Set All" button, so you can set your buttons even faster.</p>
+    </li>
+    <li>
+      <p>If your controller is not supported, see the sticky thread on the subreddit so we can add support for your controller. Note that the buttons may have the wrong images in the custom controls menu (e.g. the WiiU Pro Controller will show PS4 button
+        icons), but the controller will still work in-game.</p>
+    </li>
+  </ul>
+
+  <hr>
+
+  <h2>Zetterburn:</h2>
+
+  <p><em>With Zetterburn, we wanted to give his strong attacks a bit more KO strength and then also pull some of the safety away from his charged Neutral Special. We also improved his movement, allowing him to compete against the faster Rivals. Zetterburn is a true force on stage, but retains his weakness while being offstage.</em></p>
+
+  <ul>
+    <li>Dash Attack recovery remains at 9. Whiff Recovery of 18 Added.</li>
+    <li>Forward Tilt final recovery remains at 3. Whiff Recovery of 8 Added.</li>
+    <li>Forward Strong recovery remains at 21. Whiff Recovery of 30 Added.</li>
+    <li>Forward Strong: 8 Base .7 Scaling &gt; 8 Base .8 Scaling</li>
+    <li>Forward Strong Fire: 8 Base 1.05 Scaling &gt; 8 Base 1.1 Scaling</li>
+    <li>Up Strong: 7 Base 1.1 Scaling &gt; 8 Base 1.1 Scaling</li>
+    <li>Up Strong Fire: Remains at 8 Base 1.3 Scaling </li>
+    <li>Down Strong: 6 Base .85 Scaling &gt; 8 Base .9 Scaling</li>
+    <li>Down Strong Fire: 8 Base 1.05 Scaling &gt; 8 Base 1.15 Scaling</li>
+    <li>Down Strong Hit 1 can no longer be teched.</li>
+    <li>Initial Dash Acceleration increased from 1 &gt; 1.5.</li>
+    <li>Dash Stop Friction decreased from 2 &gt; 1.2.</li>
+    <li>Dash Speed increased from 5.75 &gt; 6.25.</li>
+    <li>Neutral Special Charge Time increased from 35 to 40.</li>
+    <li>Charged Neutral Special can no longer be jump cancelled during initial recovery window.</li>
+    <li>Forward Strong hit 1 can no longer be crouch cancelled and will combo into hit 2 more reliably.</li>
+    <li>Forward Special Recovery Reduced from 16 &gt; 12.</li>
+    <li>Forward Strong Startup Increased from 11 &gt; 15.</li>
+    <li><strong>Bug Fix:</strong> Down Special Travel Hitbox now more consistent.</li>
+  </ul>
+
+  <hr>
+
+  <h2>Kragg:</h2>
+
+  <p><em>Kragg is performing quite well in tournaments. We wanted to address some of his spammable attacks while improving his Forward Special which lost some of its luster in the last update. We used Whiff Lag to make Forward Tilt less safe to just toss out and we added Parry Lag to Pillar getting parried which should make it even riskier to use on grounded opponents.</em></p>
+
+  <ul>
+    <li>Dash Attack recovery remains at 16. Whiff Recovery of 20 added.</li>
+    <li>Forward Tilt recovery remains at 8. Whiff Recovery of 16 added.</li>
+    <li>Forward Special now has a maximum knockback of 10. For context, his top roll speed is 8. This means that Kragg can still be knocked back but not at extreme amounts from a single attack.</li>
+    <li>Kragg Down Special Startup increased from 10 &gt; 12.</li>
+    <li>Hitting a rock or a pillar now counts as triggering a hit for whiff and cancel reasons. (for all Rivals)</li>
+    <li>Forward Air Aerial Recovery increased from 12 &gt; 18.</li>
+    <li>Forward Air Auto Cancel Frame increased from 16 &gt; 24. Landing Lag Decreased from 14 &gt; 10.</li>
+    <li>Parrying Kragg’s Pillar will immediately destroy it and put Kragg into prat fall with parry lag.</li>
+  </ul>
+
+  <hr>
+
+  <h2>Forsburn:</h2>
+
+  <p><em>Forsburn has been dominating at the highest level of play recently. This is in part due to his insane aerial game and ability to combo into his KO tools. We don’t want to remove the fun parts of Forsburn but we wanted to address some of his campy strategies and overall power. His Side Special has been reworked to avoid players using it to camp opponents. We also adjusted his recovery to not be able to recover from as low on stage.</em></p>
+
+  <ul>
+    <li>Dash Attack recovery remains at 16. Whiff Recovery of 24 Added.</li>
+    <li>Forsburn no longer regains his double jump when Teleporting into a Smoke Cloud. He does however still retain his double jump if he has it.</li>
+    <li>Smokey Illusion (Side Special) no longer creates hitboxes. It still functions the same but does not create hitboxes when it attacks. The Forsburn player can press Forward Special again to make the illusion stand still. This special is now purely for
+      deception instead of being a camping / combo tool.</li>
+    <li>Smokey Illusion Recovery reduced from 8 &gt; 4. Cooldown removed after clone is destroyed.</li>
+    <li>Down Air first hitbox now always knocks forward.</li>
+    <li>Forsburn’s Aerials have been adjusted to reduce his damage and increase his scaling so his combos are not as damaging and repetitive across all percents.</li>
+    <li>Neutral Air. Hit 1 and Hit 2: Damage 3 Scaling 0 &gt; Damage 2 Scaling .15. Hit 3 Scaling .4 &gt; Scaling .5.</li>
+    <li>Forward Air. Damage 8 Scaling .3 &gt; Damage 6 Scaling .5.</li>
+    <li>Up Air. Damage 8 &gt; Damage 6.</li>
+    <li>Back Air. Hit 1: Damage 12 &gt; Damage 11.</li>
+    <li>Down Air. Hit 1: Damage 12 &gt; Damage 10.</li>
+    <li>Neutral Air Hit 1 and Hit 2 now deal .2x normal hitstun instead of 1x.</li>
+    <li>Forsburn Parry changed to have a standard Parry Hurtbox / Startup / Recovery.</li>
+    <li>Down Air Aerial Recovery Increased from 12 &gt; 18.</li>
+    <li>Back Air Aerial Recovery Increased from 15 &gt; 18.</li>
+    <li>Back Air Auto Cancel Frame increased from 9 &gt; 26. Landing Lag remains at 9 frames.</li>
+    <li>Forsburn’s Teleport distance through ground has been adjusted. Now he has a maximum height that he can be raised after reappearing into ground before he is pushed back out horizontally. In order to warp through the stages, you will have to angle your
+      teleport more vertically than horizontally.</li>
+  </ul>
+
+  <hr>
+
+  <h2>Wrastor:</h2>
+
+  <p><em>Wrastor is still our aerial ace. We wanted to take away some of the power / frustration from Side Special and shift some power around in the rest of his moveset. His biggest gain in this update is being able to combo out of Down Special again, while the rest of his tweaks should keep him in line with the other Rivals.</em></p>
+
+  <ul>
+    <li>Forward Tilt Recovery reduced from 12 &gt; 10. Whiff Recovery of 16 added.</li>
+    <li>Double Jump Height increased from 7 &gt; 8. This allows him to follow DI and air dodges a bit more reliably.</li>
+    <li>Tornado (Neutral Special) minimum time decreased from 52 &gt; 42. Maximum Time decreased from 72 &gt; 62. This is to reduce the reliance on mid damage KO’s from Tornado.</li>
+    <li>Neutral Air Knockback 7 Base .5 Scaling &gt; 5 Base .7 Scaling. This is to make the attack combo a bit better at lower percents while giving Wrastor a better option for getting opponents off stage at higher percents.</li>
+    <li>Slip Stream’s Projectile (Side Special) now causes the Flinch State against grounded opponents. Its hitstun on aerial opponents has been increased from .1x normal to .5x normal.</li>
+    <li>Down Special movement speed while in his current reduced from 15 &gt; 12. Non-current is 10 for context.</li>
+    <li>Wrastor no longer has extended roll distance while inside his current.</li>
+    <li>Wrastor can no longer jump during Down Strong Charge frames.</li>
+    <li>Wrastor Fstrong Sour Hitbox Size reduced to match the visual.</li>
+    <li>Wrastor Up Special Sweet Spot Knockback Base decreased from 10 &gt; 9. Scaling remains at 1.1.</li>
+  </ul>
+
+  <hr>
+
+  <h2>Orcane:</h2>
+
+  <p><em>Orcane is doing well too. One area we wanted to address is that he struggles to rack up damage as quickly as other Rivals. To improve this, we added some damage to down tilt and back air. We also reduced the recovery of Dash Attack on hit to allow more followups after landing one.</em></p>
+
+  <ul>
+    <li>Down Tilt recovery reduced from 7 &gt; 6. Whiff Recovery of 12 added.</li>
+    <li>Dash Attack recovery reduced from 8 &gt; 6. Whiff Recovery of 12 Added.</li>
+    <li>Up Strong Base Knockback reduced from 11 &gt; 10.</li>
+    <li>Up Air Belly Hitbox. 4 Base .4 Scaling &gt; 5 Base .6 Scaling.</li>
+    <li>Down Tilt Damage increased from 7 &gt; 9.</li>
+    <li>Back Air Sour Hitbox damage increased from 5 &gt; 6.</li>
+    <li>Dash Attack Knockback Scaling increased from .2 &gt; .3.</li>
+    <li>Down Tilt and Back Air tail hurtboxes reduced.</li>
+    <li>Up Special (Teleport Attack) recovery reduced from 35 &gt; 30. This is to make his puddle recovery slightly less punishable.</li>
+  </ul>
+
+  <hr>
+
+  <h2>Maypul</h2>
+
+  <p><em>Maypul has been a force at the top level because of her incredible speed and quick frame data. This update we wanted to refocus her balance on being a ground-based rushdown fighter. To push her close-quarter style, we peeled some range off her strong attacks. To emphasize her aerial shortcomings, we added some startup frames to multiple aerials to make her more susceptible to aerial combos.</em></p>
+
+  <ul>
+    <li>Dash Attack recovery reduced from 10 &gt; 8. Whiff Recovery of 16 added.</li>
+    <li>Forward Tilt recovery remains at 10. Whiff Recovery of 14 added.</li>
+    <li>Fspecial recovery remains at 8. Whiff Recovery of 12 added but only while Maypul is on the ground. This does not affect her recovery.</li>
+    <li>Aerial Fspecial Horizontal Speed reduced from 12 &gt; 11.</li>
+    <li>Fspecial Knockback angle changed from 60 &gt; 120. This now knocks behind Maypul.</li>
+    <li>Fspecial Hitstun reduced from .9x normal length to .5x normal length. Opponents can decide what to do post follow up such as jump away or aerial.</li>
+    <li>All 3 of Maypul’s Strong Attacks have both been reduced in range by about 20%. Their visuals have been updated to match.</li>
+    <li>Forward Strong startup reduced from 22 &gt; 20.</li>
+    <li>Down Strong startup reduced from 12 &gt; 10.</li>
+    <li>Maypul’s Dair aerial recovery has been increased from 8 &gt; 12.</li>
+    <li>Maypul Up Special un-marked hitbox has been extended and increased in size to match the visual.</li>
+    <li>Maypul’s Down Tilt hitbox has been extended further toward her body to help her cover rolls.</li>
+    <li>Maypul Skinny Plant base wrap time decreased from 50 &gt; 40.</li>
+    <li>Maypul Fat Plant base wrap time decreased from 70 &gt; 50.</li>
+    <li>Nair Startup 6 &gt; 8 Frames.</li>
+    <li>Dair Startup 5 &gt; 7 Frames.</li>
+    <li>Fair Startup 11 &gt; 12 Frames.</li>
+    <li>Up Air Startup 6 &gt; 8 Frames.</li>
+    <li>Maypul Tether travel time no longer increases on the way up. More time added to all slings based on travel distance.</li>
+    <li>Maypul Tether grounded recovery increased from 5 &gt; 6.</li>
+    <li>Maypul Down Strong will only hit an opponent once even if they are wrapped.</li>
+    <li>Maypul Down Air will no longer reflect when parried allowing your opponent to follow up how they choose.</li>
+    <li>Maypul Up Strong Knockback reduced from 9 Base 1.3 Scaling to 8 Base 1.2 Scaling.</li>
+  </ul>
+
+  <hr>
+
+  <h2>Absa</h2>
+
+  <p><em>We have finally had enough time to see how Absa’s balance is shaking out. While we like what we see, the one tactic that was too safe and rewarding was using Down Special into Up Special. We decided to remove that option but increase some of the power of the rest of her moveset to make up for it.</em></p>
+
+  <ul>
+    <li>Absa Forward Tilt recovery reduced from 8 &gt; 7. Whiff Recovery of 14 added.</li>
+    <li>Absa Dash Attack recovery reduced from 20 &gt; 15. Whiff Recovery of 22 added.</li>
+    <li>Absa’s Down Special around her will now cancel when Absa begins an Up Special.</li>
+    <li>Absa Down Special will now cancel on death.</li>
+    <li>Absa Forward Strong Startup reduced from 14 &gt; 11. Recovery increased from 15 &gt; 18.</li>
+    <li>Absa Up Air landing lag increased from 7 &gt; 14 Frames.</li>
+    <li>Absa Up Strong Hitbox Width increased from 60 &gt; 75.</li>
+    <li>Absa Up Strong Knockback 7 Base .9 Scaling &gt; 7 Base 1.2 Scaling.</li>
+    <li>Absa’s Down Special no longer hits her after it is parried but instead puts her into extended Parry Lag when parried.</li>
+    <li>Absa Up Special Active frames increased from 6 &gt; 8.</li>
+    <li>Absa’s Sweet Spot Kick Hitbox Radius after hitting a cloud increased from 70 &gt; 90.</li>
+    <li><strong>Bug Fix</strong> Up Special drawing / memory leak issues should be fixed. Let us know if you still get memory issues with her.</li>
+    <li><strong>Bug Fix</strong> Absa Rising Aerials now possible with Tap Jump. </li>
+  </ul>
+
+  <hr>
+
+  <h2>Developer Mode:</h2>
+
+  <ul>
+    <li>Dev mode's internal structure has gotten a significant overhaul, meaning old dev mode files will not work any more. Unfortunately, this means that any dev mode builds will need to be recreated.</li>
+    <li>To accommodate this change, as well as any future changes, a new folder has been added to the file structure. The "active" folder will now be located in \RivalsofAether\dev_mode\dev_ver_0.2\ as opposed to being directly in the dev_mode folder.</li>
+    <li>
+      <p>With the update, a few new features were added as well. You can now edit the following attributes of most hitboxes:</p>
+    </li>
+    <li>
+      <p>SDI multiplier</p>
+    </li>
+    <li>
+      <p>Hitstun modifier</p>
+    </li>
+    <li>
+      <p>Making hits untechable</p>
+    </li>
+    <li>
+      <p>Hit effect</p>
+    </li>
+  </ul>
+
+  <pre><code>1. Burn
+2. Burn consume
+3. Burn stun (extra hitpause on burning opponents)
+4. Wrap
+6. Mark
+</code></pre>
+
+  <ul>
+    <li>More new dev mode features will be coming soon, as well as an even larger internal restructuring that will give you greater control over each character's attacks. Once the next update comes out, however, this update's dev mode files will become obsolete
+      again.</li>
+  </ul>
+
+  <hr>
+
+  <p><em>Thanks for your time! Please report any new bugs to this thread!</em></p>
+  <div class="rmd rmd-popup">
+
+    <button type="button" class="rmd-close"><span>&times;</span></button>
+    <h1 class="rmd rmd-title">rMarkdown</h1>
+    <textarea class="rmd rmd-textarea"></textarea>
+
+  </div>
+</body>
 
 
 

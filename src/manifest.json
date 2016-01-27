@@ -11,12 +11,14 @@
 
   "content_scripts": [
     {
-      "matches": ["*://*.reddit.com/*"],
-      "js": ["lib/jquery-2.2.0.min.js", "js/contentscript.js"]
+      "matches": ["*://*.reddit.com/r/*/comments/*"],
+      "js": ["lib/jquery-2.2.0.min.js", "js/contentscript.js"],
+      "css": ["css/popup.css"]
     }
   ],
 
-  "browser_action": {
-    "default_popup": "popup.html"
+  "background": {
+    "scripts": ["js/rMarkdown.js"],
+    "persistent": false
   }
 }
