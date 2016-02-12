@@ -1,24 +1,25 @@
 {
   "manifest_version": 2,
 
-  "name": "rMarkdown",
-  "description": "Convert a reddit post or comment to markdown",
+  "name": "Mark That Down",
+  "description": "Markdown selected text fro context menu or a reddit post",
   "version": "1.0",
 
   "permissions": [
-    "activeTab"
+    "activeTab",
+    "contextMenus"
   ],
 
   "content_scripts": [
     {
-      "matches": ["*://*.reddit.com/r/*/comments/*"],
+      "matches": ["<all_urls>"],
       "js": ["lib/jquery-2.2.0.min.js", "js/contentscript.js"],
       "css": ["css/popup.css"]
     }
   ],
 
   "background": {
-    "scripts": ["js/rMarkdown.js"],
+    "scripts": ["js/background.js"],
     "persistent": false
   }
 }

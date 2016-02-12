@@ -1,8 +1,8 @@
 {
-  "name": "rmarkdown",
+  "name": "markThatDown",
   "version": "1.0.0",
-  "description": "A script that will parse a reddit post into markdown",
-  "main": "rmarkdown.js",
+  "description": "Chrome extension to convert html to markdown",
+  "main": "htmlToMarkdown.js",
   "directories": {
     "example": "examples"
   },
@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/orelovo/rmarkdown.git"
+    "url": "git+https://github.com/orelovo/markthatdown.git"
   },
   "author": "orelovo",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/orelovo/rmarkdown/issues"
+    "url": "https://github.com/orelovo/markthatdown/issues"
   },
-  "homepage": "https://github.com/orelovo/rmarkdown#readme",
+  "homepage": "https://github.com/orelovo/markthatdown#readme",
   "devDependencies": {
     "grunt": "^0.4.5",
     "grunt-contrib-concat": "^0.5.1",

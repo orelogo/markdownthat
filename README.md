@@ -1,1 +1,1 @@
-A script that will parse a reddit post into markdown
+A chrome extension that will add a context menu option to convert selected text to markdown. A popup will display the message. The extension will add a "mark that down" button to reddit posts. Once pressed, the popup will display the post in the markdown format along with the title, author, date, and url.

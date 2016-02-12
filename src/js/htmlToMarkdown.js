@@ -100,7 +100,7 @@ function getCurrentOpenTag() {
 function getNextTag(lastIndex) {
 
   // regExp for finding open tag, must be global search
-  var findOpenTag = /<\b(p|em|strong|ul|ol|li|h[1-6]|hr|br|a|img|span|blockquote|del|s|pre|code|sup)\b([\s\S]*?)>/g;
+  var findOpenTag = /<\b(p|em|strong|ul|ol|li|h[1-6]|hr|br|a|img|span|blockquote|del|s|pre|code|sup|div)\b([\s\S]*?)>/g;
   // regExp to find closing tag based on last tag opened
   var findCurrentCloseTag = new RegExp("<(\/" + getCurrentOpenTag().tag +
       ")>", "g");
@@ -373,6 +373,7 @@ function addOpenTagContent(element, index) {
         markdownString += UL_CHAR;
       }
       break;
+    case "div":
     case "pre":
       markdownString += "\n\n";
       break;
@@ -433,18 +434,6 @@ function addCloseTagContent(element) {
     case "h1":
     case "h2":
       addUnderline(element);
-      break;
-    case "h3":
-      markdownString += " " + Array(4).join(HEADING_CHAR);
-      break;
-    case "h4":
-      markdownString += " " + Array(5).join(HEADING_CHAR);
-      break;
-    case "h5":
-      markdownString += " " + Array(6).join(HEADING_CHAR);
-      break;
-    case "h6":
-      markdownString += " " + Array(7).join(HEADING_CHAR);
       break;
     case "strong":
       markdownString += EMPHASIS_CHAR + EMPHASIS_CHAR;

@@ -6,11 +6,11 @@ module.exports = function(grunt) {
       //   separator: ';',
       // },
       js: {
-        src: ['src/js/htmlToMarkdown.js', 'src/js/popup.js'],
-        dest: 'build/js/rMarkdown.js',
+        src: ['src/js/htmlToMarkdown.js', 'src/js/background.js'],
+        dest: 'build/js/background.js',
       },
       contentscript: {
-        src: ['src/js/getPostData.js', 'src/js/contentscript.js'],
+        src: ['src/js/csContextMenu.js', 'src/js/csReddit.js'],
         dest: 'build/js/contentscript.js',
       },
     },
@@ -21,7 +21,7 @@ module.exports = function(grunt) {
           // need to use cwd so that src folder isn't copied into dest
           {expand: true, cwd: 'src/', src: ['*'], dest: 'build/', filter: 'isFile'},
           {expand: true, cwd: 'src/', src: ['css/**'], dest: 'build/'},
-          {expand: true, cwd: 'src/', src: ['lib/**'], dest: 'build/'},
+          {expand: true, cwd: 'src/', src: ['lib/**'], dest: 'build/'}
         ],
       },
     },

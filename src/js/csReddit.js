@@ -1,3 +1,37 @@
+// if the url matches a reddit post, add mark that down button
+if (/[\w\W]*reddit.com\/r\/[\w\W]*\/comments\//.test(document.location.href)) {
+  // add markdown button under all posts and comments
+  $("ul.flat-list.buttons").append(
+      '<li><a href="javascript:void(0)" class="mtd-button">mark that down</a></li>');
+
+  // when user clicks on markdown button
+  $(".mtd-button").click(function() {
+    // nearest div object will be the post associated with the markdown
+    // button that is pressed
+    var divContent = $(this).closest("div");
+    sendMessageToBackground(getPostData(divContent));
+  });
+}
+
+/**
+ * Get post information from a jQuery selector. Information includes:
+ * title, author, date, url, and the post html.
+ *
+ * @param {Object} divContent - jQuery selector of post div
+ * @returns {Object} object containing post information
+ */
+function getPostData(divContent) {
+  var message = {
+    "from": "postData",
+    "postTitle": getPostTitle(divContent),
+    "author": getAuthor(divContent),
+    "date": getDate(divContent),
+    "url": getUrl(divContent),
+    "postHtml": getPostHtml(divContent)
+  };
+  return message;
+}
+
 /**
  * Get the title of the post or comment.
  *
@@ -49,7 +83,7 @@ function getDate(containerElement) {
 function getUrl(containerElement) {
   // url is set to document URL by default, necessary since posts don't have
   // an a.bylink tag
-  var url = $(location).attr("href");
+  var url = document.location.href;
 
   var premalinkElement = $(containerElement).find("a.bylink");
   if (premalinkElement[0]) { // comments will produce a permalink

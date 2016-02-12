@@ -1,4 +1,4 @@
-.rmd-popup {
+.mtd-popup {
   background-color: #DFDFDF; /* chrome address bar color */
   position: fixed;
   /*display: flex;
@@ -15,7 +15,7 @@
   z-index: 2147483647; /* 2147483647 is the largest positive value of a signed integer on a 32 bit operating system */
 }
 
-.rmd-textarea {
+.mtd-textarea {
   display: block;
   width: 96%;
   height: 83%;
@@ -29,16 +29,16 @@
   resize: none; /* can't resize textarea */
 }
 
-textarea.rmd-textarea:hover {
+textarea.mtd-textarea:hover {
   border-style: none;
   border-radius: 5px;
 }
 
-textarea.rmd-textarea:focus {
+textarea.mtd-textarea:focus {
   outline: none;
 }
 
-.rmd-title {
+.mtd-title {
   font-family: Consolas, monospace;
   margin: 5px 0;
   color: rgb(60, 60, 60);
@@ -47,7 +47,7 @@ textarea.rmd-textarea:focus {
   font-weight: bold;
 }
 
-.rmd-close {
+.mtd-close {
   float: right;
   position: relative;
   left: -4px;
@@ -63,7 +63,7 @@ textarea.rmd-textarea:focus {
   box-shadow: none;
 }
 
-.rmd-close:hover {
+.mtd-close:hover {
   color: rgb(200, 25, 25) !important;
   box-shadow: none;
   background: none;
