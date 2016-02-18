@@ -10,7 +10,7 @@ module.exports = function(grunt) {
         dest: 'build/js/background.js',
       },
       contentscript: {
-        src: ['src/js/csContextMenu.js', 'src/js/csReddit.js'],
+        src: ['src/js/csContextMenu.js', 'src/js/csReddit.js', 'src/js/csQuora.js'],
         dest: 'build/js/contentscript.js',
       },
     },

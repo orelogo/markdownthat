@@ -2,7 +2,7 @@
   "manifest_version": 2,
 
   "name": "Mark That Down",
-  "description": "Markdown selected text fro context menu or a reddit post",
+  "description": "Markdown selected text from context menu or a reddit/quora post",
   "version": "1.0",
 
   "permissions": [
@@ -21,5 +21,8 @@
   "background": {
     "scripts": ["js/background.js"],
     "persistent": false
+  },
+
+  "icons": { "128": "icon128.png"
   }
 }

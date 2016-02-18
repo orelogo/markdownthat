@@ -520,21 +520,21 @@ function getListCount() {
  * anchor tag results (necessary for use with RES).
  */
 function markdownCleanUp() {
-  var htmlCleanUp = /&lt;|&gt;|&amp;/g;
-  markdownString = markdownString.replace(htmlCleanUp, function(match) {
-    if (match === "&lt;") {
-      return "<";
-    }
-    else if (match === "&gt;") {
-      return ">";
-    }
-    else if (match === "&amp;") {
-      return "&";
-    }
-  });
-
   // removes blank anchor markdown conversions: []() and &nbsp;
   var resCleanUp = /\n&nbsp;|\[\]\(undefined\)|\[\[RES.+?\]\]\(.*?\)/g;
   markdownString = markdownString.replace(resCleanUp, "");
+  var htmlCleanUp = /&lt;|&gt;|&amp;|&nbsp;/g;
+  markdownString = markdownString.replace(htmlCleanUp, function(match) {
+    switch (match) {
+      case "&lt;":
+        return "<";
+      case "&gt;":
+        return ">";
+      case "&amp;":
+        return "&";
+      case "&nbsp;":
+        return "";
+    }
+  });
   markdownString = markdownString.trim();
 }

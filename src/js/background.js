@@ -25,20 +25,23 @@ chrome.contextMenus.onClicked.addListener(function(info, tab) {
 // receive message from contentscript and respond with markdown
 chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
   if (message.from === "postData") {
-    markdown = getMarkdownMetadata(message.postTitle, message.author, message.date, message.url) +
-        getMarkdownString(message.postHtml);
+    markdown = getMarkdownMetadata(message.title, message.author, message.date, message.url) +
+        getMarkdownString(message.html);
     sendResponse({"markdown": markdown});
   }
   else if (message.from === "selectionData") {
-    console.log("Selection post HTML received: " + message.postHtml);
+    console.log("Selection post HTML received: " + message.html);
     console.log("Selection text received: " + message.selectionText);
     // add p tag if message has no outer tags, important in the event of a
     // strong tag within an excerpt of a single paragraph
-    if (message.postHtml[0] !== "<") {
-      message.postHtml = "<p>" + message.postHtml + "</p>";
+    if (message.html[0] !== "<") {
+      message.html = "<p>" + message.html + "</p>";
     }
-    markdown = getMarkdownString(message.postHtml);
+    markdown = getMarkdownString(message.html);
     markdown = clipSelection(markdown, message.selectionText);
+
+    markdown = getMarkdownMetadata(message.title, message.author, message.date, message.url) +
+        markdown;
     sendResponse({"markdown": markdown});
   }
 });
@@ -72,8 +75,18 @@ function getMarkdownString(html) {
  */
 function getMarkdownMetadata(postTitle, author, date, url) {
   console.log(postTitle + " " + postTitle.length);
-  var metadata = postTitle + "\n" + Array(postTitle.length + 1).join("=");
-  metadata += "\n[" + author + " | " + date + "](" + url + ")\n\n";
+  var metadata = postTitle + "\n" + Array(postTitle.length + 1).join("=") +
+    "\n[";
+  if (author) { // if there is author information
+    metadata += author;
+    if (date) { // if both author and date information, add dividor
+      metadata += " | ";
+    }
+  }
+  if (date) { // if there is date information
+    metadata += date;
+  }
+  metadata += "](" + url + ")\n\n";
   return metadata;
 }
 

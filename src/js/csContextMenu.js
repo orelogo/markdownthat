@@ -31,12 +31,37 @@ function displayPopup(markdown) {
   // only inject popup html code if it is not already present
   if (!$(".mtd-popup")[0]) {
     $(document.body).append(
-        '<div class="mtd-popup"><button type="button" class="mtd-close"><span>&times;</span></button><h1 class="mtd-title">rMarkdown</h1><textarea class="mtd-textarea"></textarea></div>');
+        '<div class="mtd-popup"><button type="button" class="mtd-close"><span>&times;</span></button><h1 class="mtd-title">Mark That Down</h1><textarea class="mtd-textarea"></textarea><div class="mtd-buttons"><button type="button" class="mtd-btn mtd-copy">copy to clipboard</button></div></div>');
   }
   $(".mtd-textarea").val(markdown);
   $(".mtd-close").click(function() {
     $(".mtd-popup").remove();
   });
+  $(".mtd-copy").click(copyToClipboard);
+}
+
+/**
+ * Copy text in popup textbox to clip board.
+ */
+function copyToClipboard() {
+  var currentFocus = document.activeElement;
+  var textarea = $(".mtd-textarea");
+  textarea.focus();
+  textarea.select();
+  document.execCommand('copy');
+  $(".mtd-copy").focus(); // put focus on copy button
+}
+
+/**
+ * Get the title and url of the current page in markdown format.
+ *
+ * @returns {string} title and url of current page in markdown
+ */
+function getTitleUrlMarkdown() {
+  var title = document.title;
+  var titleUrl = title + "\n" + Array(title.length + 1).join("=") +
+    "\n[](" + document.URL + ")\n\n";
+  return titleUrl;
 }
 
 /**
@@ -55,7 +80,11 @@ function markdownSelection() {
     selectionContent = container.innerHTML; // content will be html
     var message = { // json message to be sent
       "from": "selectionData",
-      "postHtml": selectionContent,
+      "title": document.title,
+      "author": "",
+      "date": "",
+      "url": document.URL,
+      "html": selectionContent,
       "selectionText": selection.toString()
     };
     sendMessageToBackground(message);
@@ -63,6 +92,6 @@ function markdownSelection() {
   else { // node is a text node
     console.log("nodeType: text");
     selectionContent = selection.toString(); // content is plain text
-    displayPopup(selectionContent);
+    displayPopup(getTitleUrlMarkdown() + selectionContent);
   }
 }

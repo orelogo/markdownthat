@@ -1,5 +1,5 @@
 // if the url matches a reddit post, add mark that down button
-if (/[\w\W]*reddit.com\/r\/[\w\W]*\/comments\//.test(document.location.href)) {
+if (/[\w\W]*reddit.com\/r\/[\w\W]+\/comments\//.test(document.location.href)) {
   // add markdown button under all posts and comments
   $("ul.flat-list.buttons").append(
       '<li><a href="javascript:void(0)" class="mtd-button">mark that down</a></li>');
@@ -9,36 +9,36 @@ if (/[\w\W]*reddit.com\/r\/[\w\W]*\/comments\//.test(document.location.href)) {
     // nearest div object will be the post associated with the markdown
     // button that is pressed
     var divContent = $(this).closest("div");
-    sendMessageToBackground(getPostData(divContent));
+    sendMessageToBackground(getRedditPostData(divContent));
   });
 }
 
 /**
- * Get post information from a jQuery selector. Information includes:
+ * Get reddit post information from a jQuery selector. Information includes:
  * title, author, date, url, and the post html.
  *
- * @param {Object} divContent - jQuery selector of post div
- * @returns {Object} object containing post information
+ * @param {Object} divContent - jQuery selector of reddit post div
+ * @returns {Object} object containing reddit post information
  */
-function getPostData(divContent) {
+function getRedditPostData(divContent) {
   var message = {
     "from": "postData",
-    "postTitle": getPostTitle(divContent),
-    "author": getAuthor(divContent),
-    "date": getDate(divContent),
-    "url": getUrl(divContent),
-    "postHtml": getPostHtml(divContent)
+    "title": getRedditPostTitle(divContent),
+    "author": getRedditAuthor(divContent),
+    "date": getRedditDate(divContent),
+    "url": getRedditUrl(divContent),
+    "html": getRedditHtml(divContent)
   };
   return message;
 }
 
 /**
- * Get the title of the post or comment.
+ * Get the title of the reddit post or comment.
  *
- * @param {Object} containerElement - jQuery object containing post
- * @returns {string} title - title of post
+ * @param {Object} containerElement - jQuery object containing reddit post
+ * @returns {string} title - title of the reddit post
  */
-function getPostTitle(containerElement) {
+function getRedditPostTitle(containerElement) {
   // set title to title of post
   var title = $("a.title").text();
   var titleElement = $(containerElement).find("a.title");
@@ -50,23 +50,23 @@ function getPostTitle(containerElement) {
 }
 
 /**
- * Get author of post or comment.
+ * Get author of reddit post or comment.
  *
  * @param {Object} containerElement - jQuery object containing post
- * @returns {string} author of the post or comment
+ * @returns {string} author of the reddit post or comment
  */
-function getAuthor(containerElement) {
+function getRedditAuthor(containerElement) {
   var authorElement = $(containerElement).find("a.author");
   return authorElement.text();
 }
 
 /**
- * Get date of post or comment.
+ * Get date of reddit post or comment.
  *
- * @param {Object} containerElement - jQuery object containing post
- * @returns {string} date of the post or comment
+ * @param {Object} containerElement - jQuery object containing reddit post
+ * @returns {string} date of the reddit post or comment
  */
-function getDate(containerElement) {
+function getRedditDate(containerElement) {
   var timeElement = $(containerElement).find("time");
   console.log(timeElement);
   // substring contains only date and not time
@@ -75,15 +75,15 @@ function getDate(containerElement) {
 }
 
 /**
- * Get url of post or comment.
+ * Get url of reddit post or comment.
  *
- * @param {Object} containerElement - jQuery object containing post
- * @returns {string} url of the post or comment
+ * @param {Object} containerElement - jQuery object containing reddit post
+ * @returns {string} url of the reddit post or comment
  */
-function getUrl(containerElement) {
+function getRedditUrl(containerElement) {
   // url is set to document URL by default, necessary since posts don't have
   // an a.bylink tag
-  var url = document.location.href;
+  var url = document.URL;
 
   var premalinkElement = $(containerElement).find("a.bylink");
   if (premalinkElement[0]) { // comments will produce a permalink
@@ -93,13 +93,13 @@ function getUrl(containerElement) {
 }
 
 /**
- * Get the html of post or comment.
+ * Get the html of reddit post or comment.
  *
- * @param {Object} containerElement - jQuery object containing post
- * @returns {string} html of post or comment
+ * @param {Object} containerElement - jQuery object containing reddi tpost
+ * @returns {string} html of reddit post or comment
  */
-function getPostHtml(containerElement) {
+function getRedditHtml(containerElement) {
   var postElement = $(containerElement).find("div.md");
-  var postHtml = postElement.html();
-  return postHtml;
+  var html = postElement.html();
+  return html;
 }
