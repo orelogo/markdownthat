@@ -1,27 +1,52 @@
-// if url matches a quora post, add mark that down button
-if (/[\w\W]*quora.com\/[\w\W]+/.test(document.location.href)) {
-  console.log("Quora content script loaded");
-  // add markdown button under all posts and comments
-  $("div.action_bar_inner").append(
-      '<div class="action_item"><a href="javascript:void(0)" class="mtd-button">mark that down</a></div>');
+// used to check more answers were loaded
+var documentHeight = 0; // height of document
 
-  // when user clicks on markdown button
-  $(".mtd-button").click(function() {
-    // nearest div.Answer object will be the post associated with the markdown
-    // button that is pressed
-    var divContent = $(this).closest("div.AnswerBase");
-    console.log("Quora div.AnswerBase:");
-    console.log(divContent);
-    console.log("Quora Post Data:");
-    // console.log(getQuoraPostData(divContent));
-    console.log("Quora title: " + getQuoraPostTitle(divContent));
-    console.log("Quora author: " + getQuoraAuthor(divContent));
-    console.log("Quora url: " + getQuoraUrl(divContent));
-    console.log("Quora html: " + getQuoraHtml(divContent));
-    sendMessageToBackground(getQuoraPostData(divContent));
-  });
+/**
+ * Insert mark that down button below each quora post.
+ */
+function insertButtonQuora() {
+  // if on quora page and there are new answers loaded
+  if (/[\w\W]*quora.com\/[\w\W]+/.test(document.location.href) &&
+      $(document).height() > documentHeight) {
+    console.log("Quora content script loaded");
+
+    documentHeight = $(document).height();
+
+    var buttonsList = $("div.Answer.ActionBar > div.action_bar_inner");
+    // add markdown button under all posts and comments
+    buttonsList.append(function() {
+      if (!$(this).hasClass("mtd-inserted")) {
+        return '<div class="action_item"><a href="javascript:void(0)" class="mtd-button">mark that down</a></div>';
+      }
+    });
+    // for keeping track of where mtd button is added
+    buttonsList.addClass("mtd-inserted");
+
+    // when user clicks on markdown button
+    $(".mtd-button").click(function() {
+      // nearest div.Answer object will be the post associated with the markdown
+      // button that is pressed
+      var divContent = $(this).closest("div.AnswerBase");
+      console.log("Quora div.AnswerBase:");
+      console.log(divContent);
+      console.log("Quora Post Data:");
+      // console.log(getQuoraPostData(divContent));
+      console.log("Quora title: " + getQuoraPostTitle(divContent));
+      console.log("Quora author: " + getQuoraAuthor(divContent));
+      console.log("Quora url: " + getQuoraUrl(divContent));
+      console.log("Quora html: " + getQuoraHtml(divContent));
+      sendMessageToBackground(getQuoraPostData(divContent));
+    });
+
+    
+    $(window).scroll(function () {
+       if ($(document).height() > documentHeight) {
+          // insert buttons when document height changes
+          insertButtonQuora();
+       }
+    });
+  }
 }
-
 
 /**
  * Get quora post information from a jQuery selector. Information includes:
@@ -106,3 +131,8 @@ function getQuoraHtml(containerElement) {
   console.log(postElement);
   return html;
 }
+
+
+
+
+insertButtonQuora();
