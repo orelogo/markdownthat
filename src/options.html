@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+
+<head>
+  <title>Mark That Down options</title>
+  <link href="css/popup.css" rel="stylesheet">
+  <script src="lib/jquery-2.2.0.min.js"></script>
+  <script src="js/options.js"></script>
+</head>
+
+<body class="mtd-options">
+
+  <p>Emphasis character:
+    <label>
+      <input type="radio" name="em-char" value="*"> *&nbsp;</label>
+    <label>
+      <input type="radio" name="em-char" value="_"> _</label>
+  </p>
+
+  <p>Unordered list character:
+
+    <label>
+      <input type="radio" name="ul-char" value="*"> *&nbsp;</label>
+    <label>
+      <input type="radio" name="ul-char" value="-"> -&nbsp;</label>
+    <label>
+      <input type="radio" name="ul-char" value="+"> +</label>
+  </p>
+
+  <p>Horizontal separator length (0 - 100):<br>
+    <input type="text" id="hr-length" maxlength="3" size="3"><span id="hr-length-status"></span>
+  </p>
+
+  <p>Meta data (page title, url, author, date):
+    <br>
+
+    <label>
+      <input type="checkbox" id="metadata-selection"> Get metadata with selection
+    </label>
+    <br>
+
+    <label>
+      <input type="checkbox" id="metadata-posts"> Get metadata with reddit and quora posts
+    </label>
+  </p>
+
+  <button class="mtd-btn" id="save">Save</button>
+  <span id="save-status"></span>
+
+
+
+</body>

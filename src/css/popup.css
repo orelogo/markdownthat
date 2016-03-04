@@ -87,3 +87,14 @@ button.mtd-close:hover {
   background: none !important;
   border: none !important;
 }
+
+.mtd-options {
+  color: rgb(60, 60, 60);
+  /*background-color: #DFDFDF;*/
+  font-family: Consolas, monospace;
+  font-size: 85%;
+}
+
+#hr-length-status {
+  color: rgb(200, 25, 25);
+}

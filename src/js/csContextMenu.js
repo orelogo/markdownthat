@@ -1,3 +1,13 @@
+// whether to include metadata with context menu selection
+var metadataForSelection = true;
+
+// load necessary options into content script
+chrome.storage.sync.get({
+  "metadataForSelection": true,
+}, function(items) {
+  metadataForSelection = items.metadataForSelection;
+});
+
 // add listener to determine when markThatDown is clicked in the context menu
 chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
   console.log("Received onMessage");
@@ -92,6 +102,9 @@ function markdownSelection() {
   else { // node is a text node
     console.log("nodeType: text");
     selectionContent = selection.toString(); // content is plain text
-    displayPopup(getTitleUrlMarkdown() + selectionContent);
+    if (metadataForSelection) {
+      selectionContent = getTitleUrlMarkdown() + selectionContent;
+    }
+    displayPopup(selectionContent);
   }
 }

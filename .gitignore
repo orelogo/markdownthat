@@ -1,3 +1,4 @@
 current_commit.txt
 node_modules/
 build/
+dist/
