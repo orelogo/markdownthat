@@ -1,16 +1,35 @@
-// if the url matches a reddit post, add mark that down button
-if (/[\w\W]*reddit.com\/r\/[\w\W]+\/comments\//.test(document.location.href)) {
-  // add markdown button under all posts and comments
-  $("ul.flat-list.buttons").append(
-      '<li><a href="javascript:void(0)" class="mtd-button">mark that down</a></li>');
+/**
+ * Insert mark that down button into button list below each reddit post.
+ */
+function insertButtonReddit() {
+  // if the url matches a reddit post, add mark that down button
+  if (/[\w\W]*reddit.com\/r\/[\w\W]+\/comments\//.test(document.location.href)) {
+    console.log("Buttons being inserted");
+    // button list below all reddit posts
+    var buttonsList = $("ul.flat-list.buttons");
+    // add markdown button under all posts and comments
+    buttonsList.append(function() {
+      // necessary so that "load more comments" is not included
+      if (this.children.length > 0 && !$(this).hasClass("mtd-inserted")) {
+        return '<li><a href="javascript:void(0)" class="mtd-button">mark that down</a></li>';
+      }
+    });
+    // for keeping track of where mtd button is added
+    buttonsList.addClass("mtd-inserted");
 
-  // when user clicks on markdown button
-  $(".mtd-button").click(function() {
-    // nearest div object will be the post associated with the markdown
-    // button that is pressed
-    var divContent = $(this).closest("div");
-    sendMessageToBackground(getRedditPostData(divContent));
-  });
+    // when user clicks on markdown button
+    $(".mtd-button").click(function() {
+      // nearest div object will be the post associated with the markdown
+      // button that is pressed
+      var divContent = $(this).closest("div");
+      sendMessageToBackground(getRedditPostData(divContent));
+    });
+
+    $("span.morecomments > a").click(function() {
+      console.log("More comments!");
+      setTimeout(insertButtonReddit, 1000);
+    });
+  }
 }
 
 /**
@@ -103,3 +122,5 @@ function getRedditHtml(containerElement) {
   var html = postElement.html();
   return html;
 }
+
+insertButtonReddit(); // insert mark that down button when document loads
