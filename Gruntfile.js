@@ -43,6 +43,11 @@ module.exports = function(grunt) {
     },
 
     uglify: {
+      options: {
+        compress: {
+          drop_console: true
+        }
+      },
       my_target: {
         files: {
           'dist/js/background.js': ['src/js/htmlToMarkdown.js', 'src/js/background.js'],

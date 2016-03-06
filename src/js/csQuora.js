@@ -38,7 +38,7 @@ function insertButtonQuora() {
       sendMessageToBackground(getQuoraPostData(divContent));
     });
 
-    
+
     $(window).scroll(function () {
        if ($(document).height() > documentHeight) {
           // insert buttons when document height changes
@@ -123,10 +123,10 @@ function getQuoraUrl(containerElement) {
  * @returns {string} html of quora post
  */
 function getQuoraHtml(containerElement) {
-  var postElement = $(containerElement).find("span.rendered_qtext");
+  var postElement = $(containerElement).find("span.inline_editor_value > span.rendered_qtext");
   // There are two elements with span.rendered_qtext. The first corresponds to
   // the author information, the second to the post itself.
-  var html = postElement[1].innerHTML;
+  var html = postElement.html();
   console.log("Quora HTML object:");
   console.log(postElement);
   return html;
