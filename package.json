@@ -1,5 +1,5 @@
 {
-  "name": "markThatDown",
+  "name": "markdownThat",
   "version": "1.0.0",
   "description": "Chrome extension to convert html to markdown",
   "main": "htmlToMarkdown.js",

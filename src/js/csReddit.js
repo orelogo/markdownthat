@@ -1,8 +1,8 @@
 /**
- * Insert mark that down button into button list below each reddit post.
+ * Insert markdown that button into button list below each reddit post.
  */
 function insertButtonReddit() {
-  // if the url matches a reddit post, add mark that down button
+  // if the url matches a reddit post, add markdown that button
   if (/[\w\W]*reddit.com\/r\/[\w\W]+\/comments\//.test(document.location.href)) {
     console.log("Buttons being inserted");
     // button list below all reddit posts
@@ -10,15 +10,15 @@ function insertButtonReddit() {
     // add markdown button under all posts and comments
     buttonsList.append(function() {
       // necessary so that "load more comments" is not included
-      if (this.children.length > 0 && !$(this).hasClass("mtd-inserted")) {
-        return '<li><a href="javascript:void(0)" class="mtd-button">mark that down</a></li>';
+      if (this.children.length > 0 && !$(this).hasClass("mdt-inserted")) {
+        return '<li><a href="javascript:void(0)" class="mdt-button">markdown that</a></li>';
       }
     });
     // for keeping track of where mtd button is added
-    buttonsList.addClass("mtd-inserted");
+    buttonsList.addClass("mdt-inserted");
 
     // when user clicks on markdown button
-    $(".mtd-button").click(function() {
+    $(".mdt-button").click(function() {
       // nearest div object will be the post associated with the markdown
       // button that is pressed
       var divContent = $(this).closest("div");
@@ -123,4 +123,4 @@ function getRedditHtml(containerElement) {
   return html;
 }
 
-insertButtonReddit(); // insert mark that down button when document loads
+insertButtonReddit(); // insert markdown that button when document loads

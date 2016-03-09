@@ -1,4 +1,4 @@
-div.mtd-popup {
+div.mdt-popup {
   background-color: #DFDFDF !important; /* chrome address bar color */
   position: fixed !important;
   /*display: flex !important;
@@ -15,7 +15,7 @@ div.mtd-popup {
   font-family: Consolas, monospace !important;
 }
 
-textarea.mtd-textarea {
+textarea.mdt-textarea {
   display: block !important;
   width: 96% !important;
   height: 400px !important;
@@ -29,29 +29,30 @@ textarea.mtd-textarea {
   font-family: Consolas, monospace !important;
 }
 
-textarea.mtd-textarea:hover {
+textarea.mdt-textarea:hover {
   border-style: none !important;
   border-radius: 5px !important;
 }
 
-textarea.mtd-textarea:focus {
+textarea.mdt-textarea:focus {
   outline: none !important;
 }
 
-h1.mtd-title {
+h1.mdt-title {
   margin: 5px 0 !important;
   color: rgb(60, 60, 60) !important;
   text-align: center !important;
+  font-family: Consolas, monospace !important;
   font-size: large !important;
   font-weight: bold !important;
 }
 
-div.mtd-buttons {
+div.mdt-buttons {
   padding: 10px !important;
   text-align: center !important;
 }
 
-button.mtd-btn {
+button.mdt-btn {
   padding: 5px !important;
   font-family: Consolas, monospace !important;
   border: none !important;
@@ -60,12 +61,12 @@ button.mtd-btn {
   color: rgb(0, 0, 0) !important;
 }
 
-button.mtd-btn:hover {
+button.mdt-btn:hover {
   color: #AAAAAB !important;
   background-color: rgb(60, 60, 60) !important;
 }
 
-button.mtd-close {
+button.mdt-close {
   float: right !important;
   position: relative !important;
   left: -4px !important;
@@ -81,14 +82,14 @@ button.mtd-close {
   box-shadow: none !important;
 }
 
-button.mtd-close:hover {
+button.mdt-close:hover {
   color: rgb(200, 25, 25) !important;
   box-shadow: none !important;
   background: none !important;
   border: none !important;
 }
 
-.mtd-options {
+.mdt-options {
   color: rgb(60, 60, 60);
   /*background-color: #DFDFDF;*/
   font-family: Consolas, monospace;

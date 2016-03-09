@@ -1,9 +1,9 @@
 {
   "manifest_version": 2,
 
-  "name": "Mark That Down",
+  "name": "Markdown That",
   "description": "Markdown selected text from context menu or a reddit/quora post",
-  "version": "1.0",
+  "version": "1.0.1",
 
   "permissions": [
     "activeTab",

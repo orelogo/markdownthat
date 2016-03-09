@@ -8,12 +8,12 @@ chrome.storage.sync.get({
   metadataForSelection = items.metadataForSelection;
 });
 
-// add listener to determine when markThatDown is clicked in the context menu
+// add listener to determine when markdownThat is clicked in the context menu
 chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
   console.log("Received onMessage");
   console.log(message);
   // if the message is from the background page
-  if (message.contextMenu === "markThatDown") {
+  if (message.contextMenu === "markdownThat") {
     console.log("Message recevied from background page");
     markdownSelection();
   }
@@ -39,15 +39,15 @@ function sendMessageToBackground(message) {
  */
 function displayPopup(markdown) {
   // only inject popup html code if it is not already present
-  if (!$(".mtd-popup")[0]) {
+  if (!$(".mdt-popup")[0]) {
     $(document.body).append(
-        '<div class="mtd-popup"><button type="button" class="mtd-close"><span>&times;</span></button><h1 class="mtd-title">Mark That Down</h1><textarea class="mtd-textarea"></textarea><div class="mtd-buttons"><button type="button" class="mtd-btn mtd-copy">copy to clipboard</button></div></div>');
+        '<div class="mdt-popup"><button type="button" class="mdt-close"><span>&times;</span></button><h1 class="mdt-title">Markdown That</h1><textarea class="mdt-textarea"></textarea><div class="mdt-buttons"><button type="button" class="mdt-btn mdt-copy">copy to clipboard</button></div></div>');
   }
-  $(".mtd-textarea").val(markdown);
-  $(".mtd-close").click(function() {
-    $(".mtd-popup").remove();
+  $(".mdt-textarea").val(markdown);
+  $(".mdt-close").click(function() {
+    $(".mdt-popup").remove();
   });
-  $(".mtd-copy").click(copyToClipboard);
+  $(".mdt-copy").click(copyToClipboard);
 }
 
 /**
@@ -55,11 +55,11 @@ function displayPopup(markdown) {
  */
 function copyToClipboard() {
   var currentFocus = document.activeElement;
-  var textarea = $(".mtd-textarea");
+  var textarea = $(".mdt-textarea");
   textarea.focus();
   textarea.select();
   document.execCommand('copy');
-  $(".mtd-copy").focus(); // put focus on copy button
+  $(".mdt-copy").focus(); // put focus on copy button
 }
 
 /**

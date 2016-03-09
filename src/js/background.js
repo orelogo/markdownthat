@@ -28,21 +28,21 @@ chrome.storage.sync.get({
 // persistent
 chrome.runtime.onInstalled.addListener(function () {
   chrome.contextMenus.create({
-    "title": "Mark That Down",
-    "id": "markThatDown",
+    "title": "Markdown That",
+    "id": "markdownThat",
     "contexts": ["all"]
   });
 });
 
 // add contextMenu listener since our background page is not persistent
 chrome.contextMenus.onClicked.addListener(function(info, tab) {
-  if (info.menuItemId === "markThatDown") {
+  if (info.menuItemId === "markdownThat") {
     console.log("Sending contextMenu message to content script");
     // deterine which tab is active tab
     chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
       // send message to active tab
       chrome.tabs.sendMessage(tabs[0].id, {
-        "contextMenu": "markThatDown"
+        "contextMenu": "markdownThat"
       });
     });
   }

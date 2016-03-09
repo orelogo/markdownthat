@@ -2,7 +2,7 @@
 var documentHeight = 0; // height of document
 
 /**
- * Insert mark that down button below each quora post.
+ * Insert markdown that button below each quora post.
  */
 function insertButtonQuora() {
   // if on quora page and there are new answers loaded
@@ -15,15 +15,15 @@ function insertButtonQuora() {
     var buttonsList = $("div.Answer.ActionBar > div.action_bar_inner");
     // add markdown button under all posts and comments
     buttonsList.append(function() {
-      if (!$(this).hasClass("mtd-inserted")) {
-        return '<div class="action_item"><a href="javascript:void(0)" class="mtd-button">mark that down</a></div>';
+      if (!$(this).hasClass("mdt-inserted")) {
+        return '<div class="action_item"><a href="javascript:void(0)" class="mdt-button">markdown that</a></div>';
       }
     });
     // for keeping track of where mtd button is added
-    buttonsList.addClass("mtd-inserted");
+    buttonsList.addClass("mdt-inserted");
 
     // when user clicks on markdown button
-    $(".mtd-button").click(function() {
+    $(".mdt-button").click(function() {
       // nearest div.Answer object will be the post associated with the markdown
       // button that is pressed
       var divContent = $(this).closest("div.AnswerBase");
@@ -131,8 +131,5 @@ function getQuoraHtml(containerElement) {
   console.log(postElement);
   return html;
 }
-
-
-
 
 insertButtonQuora();
